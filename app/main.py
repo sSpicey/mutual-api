@@ -5,13 +5,9 @@ import uvicorn
 
 app = FastAPI()
 
-# Inverted number endpoint
 app.include_router(inverted_number_router)
-
-# Medium length endpoint
 app.include_router(medium_length_router)
 
-# Common words endpoint
 app.include_router(common_words_router)
 
 
