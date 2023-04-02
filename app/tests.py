@@ -23,6 +23,16 @@ class TestReverseIntegers:
         assert response.status_code == 200
         assert response.json() == {"reverse integer": 0}
 
+    def test_reverse_single_digit_number(self):
+        response = client.get(f"{self.path}/5")
+        assert response.status_code == 200
+        assert response.json() == {"reverse integer": 5}
+
+    def test_reverse_multiple_zeros(self):
+        response = client.get(f"{self.path}/000")
+        assert response.status_code == 200
+        assert response.json() == {"reverse integer": 0}
+
 class TestAverageWordsLength:
     path = "/average_length"
 
@@ -35,6 +45,11 @@ class TestAverageWordsLength:
         response = client.post(self.path, json={"phrase": "Hi all, my name is Tom...I am originally from Brazil."})
         assert response.status_code == 200
         assert response.json()["average length"] == pytest.approx(3.54, abs=0.01)
+
+    def test_empty_phrase(self):
+        response = client.post(self.path, json={"phrase": ""})
+        assert response.status_code == 200
+        assert response.json() == {"average length": 0}
 
 class TestMatchedAndMismatchedWords:
     path = "/matched_mismatched_words"
@@ -51,3 +66,26 @@ class TestMatchedAndMismatchedWords:
         assert set(response["mismatched words"]) == set(["We", "to", "heavy", "The", "storm", "meet", "hit", "pleased", "are", "by", "a", "in", "was", "you", "our"])
         assert set(response["matched words"]) == set(["really", "city"])
 
+    def test_identical_phrases(self):
+        response = client.post(self.path, json={
+            "phrase1": "Hello world",
+            "phrase2": "Hello world"
+        })
+
+        assert response.status_code == 200
+
+        response = response.json()
+        assert set(response["mismatched words"]) == set()
+        assert set(response["matched words"]) == set(["Hello", "world"])
+
+    def test_empty_phrase(self):
+        response = client.post(self.path, json={
+            "phrase1": "",
+            "phrase2": ""
+        })
+
+        assert response.status_code == 200
+
+        response = response.json()
+        assert set(response["mismatched words"]) == set()
+        assert set(response["matched words"]) == set()
