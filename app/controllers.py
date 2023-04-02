@@ -8,7 +8,6 @@ def reverse_integer(number: int) -> int:
 
 def average_words_length(phrase: str) -> float:
     words = re.findall(r'\w+', phrase)
-    print(words)
     total_letters = sum(len(word) for word in words)
     return total_letters / len(words) if words else 0
 
