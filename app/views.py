@@ -18,4 +18,4 @@ def post_average_words_length(request: AverageWordsLengthRequest):
 def post_matched_and_mismatched_words(request: MatchedAndMismatchedWordsRequest):
     phrase1, phrase2 = request.phrase1, request.phrase2
     matched_words, mismatched_words = matched_and_mismatched_words(phrase1, phrase2)
-    return {"matched words": matched_words, "mismatched words": mismatched_words}
+    return {"mismatched words": matched_words, "matched words": mismatched_words}
