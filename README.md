@@ -34,6 +34,5 @@ Para obter as palavras correspondentes e não correspondentes entre duas frases,
 
 - Certifique-se de que o Docker esteja instalado em sua máquina.
 - Clone o repositório usando o comando git clone.
-- Crie a imagem Docker executando `docker build -t app`. dentro do diretório do aplicativo. Isso criará uma imagem chamada app.
-- Execute o contêiner com o comando `docker-compose up`. Isso executará o contêiner e mapeará a porta do contêiner 80 para a porta 8000 do host.
+- Crie a imagem Docker e execute o conteiner usandop `docker-compose up --build`. Isso mapeará a porta do contêiner 80 para a porta 8000 do host, pela qual você poderá fazer as chamadas da API
 
